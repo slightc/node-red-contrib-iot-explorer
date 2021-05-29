@@ -1,0 +1,31 @@
+<script type="text/javascript">
+    RED.nodes.registerType('device reg',{
+        category: 'iotExplorer',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            productSecret: {value:undefined},
+        },
+        inputs:1,
+        outputs:1,
+        icon: "db.svg",
+        label: function() {
+            return this.name||"设备注册";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="device reg">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-productSecret"><i class="fa fa-tag"></i>ProductSecret</label>
+        <input type="text" id="node-input-productSecret" placeholder="product secret">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="device reg">
+    <p>register device</p>
+</script>

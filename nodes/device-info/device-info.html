@@ -1,0 +1,46 @@
+<script type="text/javascript">
+    RED.nodes.registerType('device info',{
+        category: 'iotExplorer',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            file: {value:"~/.iot_dev_info"},
+            productId: {value: undefined},
+            deviceName: {value: undefined},
+            devicePsk: {value: undefined},
+        },
+        inputs:1,
+        outputs:1,
+        icon: "file.png",
+        label: function() {
+            return this.name||"设备信息";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="device info">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-file"><i class="fa fa-tag"></i>CacheFile</label>
+        <input type="text" id="node-input-file" placeholder="file path">
+    </div>
+    <div class="form-row">
+        <label for="node-input-productId"><i class="fa fa-tag"></i>ProductId</label>
+        <input type="text" id="node-input-productId" placeholder="product id must have">
+    </div>
+    <div class="form-row">
+        <label for="node-input-deviceName"><i class="fa fa-tag"></i>DeviceName</label>
+        <input type="text" id="node-input-deviceName" placeholder="undefine will auto generate and save">
+    </div>
+    <div class="form-row">
+        <label for="node-input-devicePsk"><i class="fa fa-tag"></i>DevicePsk</label>
+        <input type="text" id="node-input-devicePsk" placeholder="undefine will get from cache file">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="device info">
+    <p>read or write iot device info</p>
+</script>

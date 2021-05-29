@@ -1,0 +1,32 @@
+<script type="text/javascript">
+    RED.nodes.registerType('iot connect', {
+        category: 'iotExplorer',
+        color: '#a6bbcf',
+        defaults: {
+            name: { value: "" },
+            server: { value: null, type: "iot-explorer-server" },
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels: ["connect","close"],
+        icon: "light.svg",
+        label: function () {
+            return this.name || "连接服务器";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="iot connect">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-globe"></i>Server</label>
+        <input type="text" id="node-input-server" placeholder="Server">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="iot connect">
+    <p>read or write iot connect</p>
+</script>

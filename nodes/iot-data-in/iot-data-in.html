@@ -1,0 +1,45 @@
+<script type="text/javascript">
+    RED.nodes.registerType('iot data in',{
+        category: 'iotExplorer',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            server: { value: null, type: "iot-explorer-server" },
+            subType: { value: "property" },
+            subTopic: { value: "" },
+        },
+        inputs:1,
+        outputs:1,
+        icon: "arrow-in.svg",
+        label: function() {
+            return this.name || `接收数据 ${this.subTopic ? 'custom' : this.subType}`;
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="iot data in">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-globe"></i>Server</label>
+        <input type="text" id="node-input-server" placeholder="Server">
+    </div>
+    <div class="form-row">
+        <label for="node-input-subType"><i class="fa fa-tag"></i>Type</label>
+        <select id="node-input-subType">
+            <option value ="property">属性 property</option>
+            <option value ="event">事件 event</option>
+            <option value="action">行为 action</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-subTopic"><i class="fa fa-tag"></i>Topic</label>
+        <input type="text" id="node-input-subTopic" placeholder="Topic">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="iot data in">
+    <p>read or write iot device info</p>
+</script>
