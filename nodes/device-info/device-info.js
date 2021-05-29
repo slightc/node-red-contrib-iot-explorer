@@ -1,6 +1,6 @@
 const fs = require("fs")
-const fsPm = require('fs/promises');
 const os = require('os');
+const{ promisify } =require("util");
 const randomString = require('../../lib/randomString');
 
 
@@ -16,11 +16,11 @@ module.exports = function(RED) {
                 type = msg.payload.type;
             }
 
-            fsPm.access(filePath, fs.constants.R_OK | fs.constants.W_OK).catch(() => {
+            promisify(fs.access)(filePath, fs.constants.R_OK | fs.constants.W_OK).catch(() => {
                 console.log('create file')
                 return fsPm.writeFile(filePath, '')
             }).then(() => {
-                return fsPm.readFile(filePath).then((data) => {
+                return promisify(fs.readFile)(filePath).then((data) => {
                     var obj = {};
                     var needWrite = false;
                     var notSend = false;
@@ -53,7 +53,7 @@ module.exports = function(RED) {
 
                     return Promise.resolve().then(() => {
                         if (needWrite) {
-                            return fsPm.writeFile(filePath, JSON.stringify(obj))
+                            return promisify(fs.writeFile)(filePath, JSON.stringify(obj))
                         }
                         return Promise.resolve()
                     }).then(() => {
