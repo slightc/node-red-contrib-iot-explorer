@@ -17,12 +17,15 @@ module.exports = function(RED) {
         nodeDisconnect(node);
 
         node.on('input', function (msg) {
-            if(node.server?.client?.connected){
+            if (!node.server) {
+                return
+            }
+            if (node.server.client && node.server.client.connected) {
                 try {
-                    node.server?.client?.end();
+                    node.server.client.end();
                 } catch { }
             }
-            node.server?.createClient(msg.payload).then((client) => {
+            node.server.createClient(msg.payload).then((client) => {
                 nodeConnect(node);
                 client.on("close", () => {
                     nodeDisconnect(node);

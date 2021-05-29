@@ -9,11 +9,11 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', function (msg) {
-            if (!node.server?.client?.connected) {
+            if (!(node.server && node.server.client && node.server.client.connected)) {
                 return
             }
             const topic = config.subTopic || `$thing/down/${config.subType || 'property'}/{productId}/{deviceName}`;
-            node.server?.subscribe(topic, (message) => {
+            node.server.subscribe(topic, (message) => {
                 let data = message;
                 try {
                     data = JSON.parse(message);

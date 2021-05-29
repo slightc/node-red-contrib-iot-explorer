@@ -9,11 +9,11 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', function (msg) {
-            if (!node.server?.client?.connected) {
+            if (!(node.server && node.server.client && node.server.client.connected)) {
                 return
             }
             const topic = config.pubTopic || `$thing/up/${config.pubType || 'property'}/{productId}/{deviceName}`;
-            node.server?.publish(topic, JSON.stringify(msg.payload)).then(() => {
+            node.server.publish(topic, JSON.stringify(msg.payload)).then(() => {
                 node.send({ payload: "publish success" })
             }).catch(err => {
                 console.log(err)
