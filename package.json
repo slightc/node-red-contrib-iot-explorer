@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-iot-explorer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "tencent iot explorer",
   "main": "index.js",
   "scripts": {
