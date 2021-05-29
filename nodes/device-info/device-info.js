@@ -18,7 +18,7 @@ module.exports = function(RED) {
 
             promisify(fs.access)(filePath, fs.constants.R_OK | fs.constants.W_OK).catch(() => {
                 console.log('create file')
-                return fsPm.writeFile(filePath, '')
+                return promisify(fs.writeFile)(filePath, '')
             }).then(() => {
                 return promisify(fs.readFile)(filePath).then((data) => {
                     var obj = {};
