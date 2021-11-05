@@ -2,25 +2,36 @@ const mqtt = require('mqtt');
 const createNamePwd = require('../../lib/createNamePwd');
 const events = require('events'); 
 
-const replaceTopicProperty = (topic, device) => {
-    if (topic && topic.replace) {
-        let out = topic.replace('${productId}', '{productId}').replace('${deviceName}', '{deviceName}')
-            .replace('{productId}', device.productId).replace('{deviceName}', device.deviceName)
+const parsePropertiesToString = (str, property) => {
+    if (str && str.replace) {
+        let out = str.replace(/\$?{.*?}/g, (value)=>{
+            const key = value.replace(/(^\$?{|}$)/g,'')
+            return (property && property[key]) || '';
+        });
         return out;
     }
-    return topic;
+    return str;
+}
+
+const replaceTopicProperty = (topic, device) => {
+    return parsePropertiesToString(topic,device);
 }
 
 module.exports = function (RED) {
-    function IOTServerNode(n) {
-        RED.nodes.createNode(this, n);
+    function IOTServerNode(config) {
+        RED.nodes.createNode(this, config);
 
         const node = this;
+        node.name = config.name || '';
 
         node.emitter = new events.EventEmitter();
 
-        node.createClient = ({ productId, deviceName, devicePsk }) => {
-            const mqttUrl = `mqtt://${productId}.iotcloud.tencentdevices.com`;
+        node.createClient = (deviceInfo) => {
+            const { productId, deviceName, devicePsk } = deviceInfo;
+            let mqttUrl = config.mqttUrl || 'mqtt://{productId}.iotcloud.tencentdevices.com';
+            mqttUrl = parsePropertiesToString(mqttUrl,deviceInfo)
+
+            console.log('mqttUrl', mqttUrl);
 
             if (node.client) {
                 try {
@@ -42,6 +53,9 @@ module.exports = function (RED) {
             return new Promise((resolve, reject) => {
                 client.on('connect', () => {
                     resolve(client)
+                })
+                client.on('error', (err) => {
+                    reject(err);
                 })
             })
         }

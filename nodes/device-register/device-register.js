@@ -35,7 +35,7 @@ module.exports = function (RED) {
 
             axios({
                 method: 'POST',
-                url: 'https://ap-guangzhou.gateway.tencentdevices.com/register/dev',
+                url: config.registerUrl || 'https://ap-guangzhou.gateway.tencentdevices.com/register/dev',
                 headers: {
                     'Accept': 'text/xml,application/json;*/*',
                     'Content-Type': 'application/x-www-form-urlencoded'

@@ -3,6 +3,8 @@
         category: 'config',
         defaults: {
             name: {value:""},
+            mqttUrl: {value:""},
+            // mqttPort: {value:1883},
         },
         label: function() {
             return this.name || 'iot-explorer-server';
@@ -12,7 +14,24 @@
 
 <script type="text/html" data-template-name="iot-explorer-server">
     <div class="form-row">
-        <label for="node-config-input-name"><i class="fa fa-bookmark"></i> Name</label>
+        <label for="node-config-input-name"><i class="fa fa-bookmark"></i>Name</label>
         <input type="text" id="node-config-input-name">
+
     </div>
+    <div class="form-row">
+        <label for="node-config-input-mqttUrl"><i class="fa fa-tag"></i>mqttUrl</label>
+        <input
+            type="text"
+            id="node-config-input-mqttUrl"
+            placeholder="mqtt://{productId}.iotcloud.tencentdevices.com:1883"
+        />
+    </div>
+    <!-- <div class="form-row">
+        <label for="node-config-input-mqttPort"><i class="fa fa-tag"></i>mqttUrl</label>
+        <input
+            type="number"
+            id="node-config-input-mqttPort"
+            placeholder="1883"
+        />
+    </div> -->
 </script>
